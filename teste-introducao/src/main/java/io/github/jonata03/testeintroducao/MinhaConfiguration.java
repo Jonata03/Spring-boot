@@ -1,11 +1,17 @@
 package io.github.jonata03.testeintroducao;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-@Configuration
+import org.springframework.context.annotation.Profile;
+
+
+@Development
 public class MinhaConfiguration {
-    @Bean(name = "applicationName")
-    public String applicationNome(){
-        return "Sistema de venda";
+    @Bean
+    public CommandLineRunner executar() {
+        return args -> {
+            System.out.println("RODANDO AS CONFIGURAÇÕES DO DESENVOLVIMENTO");
+        };
     }
 }
