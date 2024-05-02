@@ -1,47 +1,52 @@
 package io.github.jonata03.jdbc;
 
 import io.github.jonata03.jdbc.domain.entity.Cliente;
-import io.github.jonata03.jdbc.domain.repositorio.Clientes;
+import io.github.jonata03.jdbc.domain.entity.Pedido;
+import io.github.jonata03.jdbc.domain.repository.Clientes;
+import io.github.jonata03.jdbc.domain.repository.Pedidos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
 public class JdbcApplication {
 	@Bean
-	public CommandLineRunner init(@Autowired Clientes clientes){
+	public CommandLineRunner init(
+			@Autowired Clientes clientes,
+			@Autowired Pedidos pedidos
+	){
 		return args -> {
 			System.out.println("Salvando clientes");
-			clientes.salvar(new Cliente("jonata"));
-			clientes.salvar(new Cliente("Henrrique"));
+//			clientes.save(new Cliente("jonata"));
+//			clientes.save(new Cliente("Henrrique"));
 
-			List<Cliente> todosClientes = clientes.obterTodos();
-			todosClientes.forEach(System.out::println );
+			Cliente fulano = new Cliente("Fulano");
+			clientes.save(fulano);
 
-			System.out.println("atualizando clientes");
+			Pedido p = new Pedido();
+			p.setCliente(fulano);
+			p.setDataPedido(LocalDate.now());
+			p.setTotal(BigDecimal.valueOf(100.0));
 
-			todosClientes.forEach(c -> {
-				c.setNome(c.getNome() + " atualizado.");
-				clientes.atualizar(c);
-			});
+			pedidos.save(p);
 
-			System.out.println("Buscando clientes");
-			clientes.buscarPorNome("Hen").forEach(System.out::println);
+			pedidos.findByCliente(fulano).forEach(System.out::println);
 
-			System.out.println("Deletando clientes");
-			clientes.obterTodos().forEach(c -> {
-				clientes.deletar(c);
-			});
-			todosClientes = clientes.obterTodos();
-			if(todosClientes.isEmpty()){
-				System.out.println("nenhum cliente encontrado");
-			}else{
-				todosClientes.forEach(System.out::println);
-			}
+
+
+//			Cliente cliente = clientes.findClienteFetchPedidos(fulano.getId());
+//			System.out.println(cliente);
+//			System.out.println(cliente.getPedidos());
+
+//			List<Cliente> result = clientes.encontrarPorNome("Hen");
+//			result.forEach(System.out::println);
+
 		};
 	}
 

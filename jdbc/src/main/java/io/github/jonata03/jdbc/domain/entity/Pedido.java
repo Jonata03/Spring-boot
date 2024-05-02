@@ -1,13 +1,39 @@
 package io.github.jonata03.jdbc.domain.entity;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
+@Table(name = "pedido")
 public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name="id")
     private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name="cliente_id")
     private Cliente cliente;
-    private LocalDate dataCliente;
+
+    @Column(name = "data_pedido")
+    private LocalDate dataPedido;
+
+    @Column(name = "total", precision = 20 , scale = 2 )
     private BigDecimal total;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> Itens;
+
+    public List<ItemPedido> getItens() {
+        return Itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        Itens = itens;
+    }
 
     public Integer getId() {
         return id;
@@ -25,12 +51,12 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public LocalDate getDataCliente() {
-        return dataCliente;
+    public LocalDate getDataPedido() {
+        return dataPedido;
     }
 
-    public void setDataCliente(LocalDate dataCliente) {
-        this.dataCliente = dataCliente;
+    public void setDataPedido(LocalDate dataPedido) {
+        this.dataPedido = dataPedido;
     }
 
     public BigDecimal getTotal() {
@@ -39,5 +65,14 @@ public class Pedido {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", dataPedido=" + dataPedido +
+                ", total=" + total +
+                '}';
     }
 }
