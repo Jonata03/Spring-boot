@@ -4,8 +4,9 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemPedidoDTO {
    private Integer produto;
    private Integer quantidade;

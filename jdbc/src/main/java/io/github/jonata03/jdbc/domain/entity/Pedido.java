@@ -1,11 +1,17 @@
 package io.github.jonata03.jdbc.domain.entity;
 
+import io.github.jonata03.jdbc.domain.enums.StatusPedido;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "pedido")
 public class Pedido {
@@ -24,55 +30,12 @@ public class Pedido {
     @Column(name = "total", precision = 20 , scale = 2 )
     private BigDecimal total;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Status")
+    private StatusPedido status;
+
     @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> Itens;
+    private List<ItemPedido> itens;
 
-    public List<ItemPedido> getItens() {
-        return Itens;
-    }
-
-    public void setItens(List<ItemPedido> itens) {
-        Itens = itens;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public LocalDate getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(LocalDate dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", dataPedido=" + dataPedido +
-                ", total=" + total +
-                '}';
-    }
 }
+
