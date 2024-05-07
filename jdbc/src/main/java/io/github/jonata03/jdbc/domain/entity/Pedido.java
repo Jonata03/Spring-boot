@@ -1,7 +1,7 @@
 package io.github.jonata03.jdbc.domain.entity;
 
 import io.github.jonata03.jdbc.domain.enums.StatusPedido;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

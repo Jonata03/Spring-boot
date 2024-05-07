@@ -1,8 +1,8 @@
 package io.github.jonata03.jdbc.rest.dto;
 
-import lombok.*;
-
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
