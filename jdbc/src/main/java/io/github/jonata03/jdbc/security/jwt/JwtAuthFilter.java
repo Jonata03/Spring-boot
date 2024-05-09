@@ -4,8 +4,6 @@ import io.github.jonata03.jdbc.service.impl.UsuarioServiceImpl;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,7 +27,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletRequest httpServletRequest,
             HttpServletResponse httpServletResponse,
             FilterChain filterChain) throws ServletException, IOException {
-        String authorization = httpServletRequest.getHeader("Autorization");
+        String authorization = httpServletRequest.getHeader("Authorization");
 
         if(authorization != null && authorization.startsWith("Bearer")){
             String token = authorization.split("  ")[1];
