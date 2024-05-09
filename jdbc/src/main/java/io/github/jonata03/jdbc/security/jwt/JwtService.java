@@ -1,4 +1,4 @@
-package io.github.jonata03.jdbc;
+package io.github.jonata03.jdbc.security.jwt;
 
 import io.github.jonata03.jdbc.domain.entity.Usuario;
 import io.jsonwebtoken.Claims;
@@ -6,16 +6,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Table;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashMap;
 
 @Service
 public class JwtService {

@@ -2,6 +2,7 @@ package io.github.jonata03.jdbc.service.impl;
 
 import io.github.jonata03.jdbc.domain.entity.Usuario;
 import io.github.jonata03.jdbc.domain.repository.UsuarioRepository;
+import io.github.jonata03.jdbc.exception.SenhaInvalidaException;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -25,6 +26,16 @@ public class UsuarioServiceImpl implements UserDetailsService {
     public Usuario salvar(Usuario usuario){
         return repository.save(usuario);
     }
+
+    public UserDetails autenticar(Usuario usuario){
+        UserDetails user = loadUserByUsername(usuario.getLogin());
+        boolean senhasBatem = encoder.matches(usuario.getSenha(), user.getPassword());
+        if(senhasBatem){
+            return user;
+        }
+        throw new SenhaInvalidaException();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = repository.findByLogin(username)
