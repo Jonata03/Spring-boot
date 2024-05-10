@@ -27,3 +27,10 @@
 --     PRODUTO_ID INTEGER REFERENCES PRODUTO (ID),
 --     QUANTIDADE INTEGER
 -- );
+
+CREATE TABLE USUARIO(
+                        ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+                        LOGIN VARCHAR(50),
+                        SENHA VARCHAR(255),
+                        ADMIN BOOL DEFAULT FALSE
+)
