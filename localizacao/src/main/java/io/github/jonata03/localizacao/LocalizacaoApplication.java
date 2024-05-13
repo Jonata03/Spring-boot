@@ -2,6 +2,7 @@ package io.github.jonata03.localizacao;
 
 import io.github.jonata03.localizacao.domain.entity.Cidade;
 import io.github.jonata03.localizacao.domain.repository.CidadeRepository;
+import io.github.jonata03.localizacao.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,33 +13,23 @@ import javax.transaction.Transactional;
 @SpringBootApplication
 public class LocalizacaoApplication implements CommandLineRunner {
 
-	@Autowired
-	private CidadeRepository cidadeRepository;
+    @Autowired
+    private CidadeService service;
 
-	@Override
-	public void run(String... args) throws Exception {
-		listarCidade();
-		listarCidadePorNome();
-		listarCidadePorHabitantes();
-	}
+    @Override
+    public void run(String... args) throws Exception {
+//        service.listarCidadePorQuantidadeHabitantes();
+//        service.listarCidade();
+//        service.listarCidadePorNome();
+//        service.listarCidadePorHabitantes();
+//        var cidade = new Cidade(null, "Sao Paulo", null);
+//        service.filtroDinamico(cidade).forEach(System.out::println);
+//        service.listarCidadesByNomeSpec();
+        var cidade = new Cidade(1L, "Sao Paulo", 100L);
+        service.listarCidadePorNomeSQL();
+    }
 
-	@Transactional
-    public void salvarCidade(){
-		var cidade = new Cidade(1L, "Sao Paulo", 12396372L);
-		cidadeRepository.save(cidade);
-	}
-
-	void listarCidade(){
-		cidadeRepository.findAll().forEach(System.out::println);
-	}
-
-	void listarCidadePorNome(){
-		cidadeRepository.findByNome("Sao Paulo").forEach(System.out::println);
-	}
-	void listarCidadePorHabitantes(){
-		cidadeRepository.findByHabitantes(100000L).forEach(System.out::println);
-	}
-	public static void main(String[] args) {
-		SpringApplication.run(LocalizacaoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LocalizacaoApplication.class, args);
+    }
 }
